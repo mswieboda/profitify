@@ -31,11 +31,7 @@ export default class ProfitScreen extends Component<NavigationStackScreenProps> 
       return null
     }
 
-    const result = this.currentPrice - this.tradePrice
-
-    console.log(">>> difference: ", result)
-
-    return result
+    return this.currentPrice - this.tradePrice
   }
 
   @computed

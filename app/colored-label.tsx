@@ -1,13 +1,14 @@
 import React from 'react'
 import {
+  ScrollView,
   StyleSheet,
   useColorScheme,
   Text,
 } from 'react-native'
 import _ from 'lodash'
 
-export default ({ value, formatter, style }) => {
-  const formatted = _.isNumber(value) ? formatter(value) : '--'
+export default ({ value, formatter, prefix = '', alwaysShowSign = false, style }) => {
+  let formatted = prefix + (_.isNumber(value) ? formatter(Math.abs(value)) : '--')
   const isDarkMode = useColorScheme() === 'dark'
   let textColor = isDarkMode ? '#fff' : '#000'
 
@@ -19,13 +20,21 @@ export default ({ value, formatter, style }) => {
     }
   }
 
+  if (value < 0 || alwaysShowSign) {
+    const sign = value < 0 ? '-' : value > 0 ? '+' : ' '
+    formatted = sign + formatted
+  }
+
   const styles = StyleSheet.create({
     textColor: {
-      color: textColor
+      color: textColor,
+      fontFamily: "monospace"
     }
   })
 
   return (
-    <Text style={[style, styles.textColor]}>{formatted}</Text>
+    <ScrollView horizontal={true}>
+      <Text style={[style, styles.textColor]}>{formatted}</Text>
+    </ScrollView>
   )
 }
