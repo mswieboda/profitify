@@ -12,7 +12,9 @@ const App = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{headerShown: false}}
+        >
           <Stack.Screen name="Profitify" component={ProfitScreen} />
         </Stack.Navigator>
       </NavigationContainer>
